@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginService from "./../service/loginservice.js";
+const requestIp = require('request-ip');
 
 
 class Login extends Component {
@@ -7,16 +8,16 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            //id:0,
-    
+            
             userName:"",
             password:"",
             //dateTime:""
          }
     
-    
+         this.clientip = "";
         this.serve =  new LoginService();
     }
+
 
     onChangeInput(e){
         this.setState({[e.target.name]:e.target.value})
@@ -26,7 +27,8 @@ class Login extends Component {
   
 
     onClickSave(e){  
-         
+       
+            
         let userCrd = {
             //id:this.state.id,
             userName:this.state.userName,
@@ -38,14 +40,14 @@ class Login extends Component {
         .then(resp=>resp.json())
         .then(resp=>{
             if(resp.status===200){
-                console.log("-------------", resp.userName);
+                
                 
                 sessionStorage.setItem("token",resp.token);
                 sessionStorage.setItem("role", resp.role);
                 sessionStorage.setItem("userName", resp.userName);
                 
                 this.role = sessionStorage.getItem("role");
-                console.log(this.role);
+                
                 
                 if(this.role === "Admin" || this.role ==="Operator"){
                 this.props.history.push('/dashboard') }
@@ -59,6 +61,10 @@ class Login extends Component {
             }
         })
         .catch(error=>console.log(error.status));
+    
+    
+        
+        
     }
     
     render() { 

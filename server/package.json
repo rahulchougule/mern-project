@@ -23,6 +23,7 @@
     "q": "^1.5.1"
   },
   "dependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "request-ip": "^2.1.3"
   }
 }

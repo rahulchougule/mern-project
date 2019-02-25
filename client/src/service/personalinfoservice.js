@@ -83,8 +83,12 @@ class PersonalInfoService{
         }  
         getPersonalInfoOnSearch(userName,token){
             
+            console.log("in search ------ : ", userName);
             
             let promise = fetch("http://localhost:4040/api/personalinfo/byusername/"+userName, {
+                      
+              
+              
                                 method:"GET",
                                 headers:{
                                     

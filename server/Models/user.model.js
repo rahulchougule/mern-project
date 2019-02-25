@@ -11,4 +11,13 @@ var userSchema = mongoose.Schema({
      //ipAddress:Number
 })
 
+var LoginStatusSchema = mongoose.Schema({
+     userName:String,
+     dateTime:Date,
+     ip:String
+})
+
+
 module.exports = mongoose.model("User", userSchema, "Users")
+
+module.exports = mongoose.model("LoginStatus", LoginStatusSchema, "LoginStatus")

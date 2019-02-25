@@ -1,8 +1,11 @@
+const requestIp = require('request-ip');
+
 var mongoose= require("mongoose");
 var usermod = require("./../Models/user.model.js");
 var jwt = require("jsonwebtoken");
 
 var LoginModel = mongoose.model("User")
+var LoginStatuModel = mongoose.model("LoginStatus")
 
 var jwtSettings = {
     jwtSecret:"qwertyasdfqwertyasdf"
@@ -50,6 +53,21 @@ module.exports = {
                     tokenStore = token;
                 console.log("token : " , token);
 
+                        // to post loginStatus
+
+                        let loginDetails = {
+                         ip : requestIp.getClientIp(request),
+                         userName : request.body.userName,
+                         dateTime : new Date()
+                        }
+                            console.log(loginDetails);
+                            
+                        LoginStatuModel.create(loginDetails, function(err, res){
+                            if(err){
+                                response.send({status:500, error:"Internal server error" })
+                            }   
+                            response.send({status:200, data:res, message:"Login details saved"})
+                           })
 
                        response.send({
                         authenticated:true,
@@ -58,10 +76,17 @@ module.exports = {
                         status: 200,
                         role:res.role,   
                         userName:res.userName
+
+ 
                     });
 
                     
+                        
+
+                    
+                    
                 }
+
             }
         });
     }

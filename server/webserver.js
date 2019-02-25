@@ -116,8 +116,7 @@ mongoose.connect(
         request.decoded = decoded;
     
           User.getUsers(request, response)
-         console.log(response);
-       
+                
       }
     })
   });
@@ -176,8 +175,7 @@ mongoose.connect(
   // to login 
   instance.post("/api/login",function(request, response){
 
-    console.log("in api login ...........");
-    
+        
     // var tokenReceived = request.headers.authorization.split(" ")[1];
 
     // jwt.verify(tokenReceived, instance.get("jwtSecret"), function(err, decoded){
@@ -202,7 +200,7 @@ mongoose.connect(
 
     jwt.verify(tokenReceived, instance.get("jwtSecret"), function(err, decoded){
       if(err){
-        console.log(err);
+        
         
         response.send({status:500, error:"Internal server error : Token verification failed"})
       }
@@ -224,8 +222,7 @@ mongoose.connect(
 
     jwt.verify(tokenReceived, instance.get("jwtSecret"), function(err, decoded){
       if(err){
-        console.log(err);
-        
+                
         response.send({status:500, error:"Internal server error : Token verification failed"})
       }
       else{
@@ -241,7 +238,7 @@ mongoose.connect(
 // to get personal info
   instance.get("/api/personalinfo", function(request, response){
     var tokenReceived = request.headers.authorization.split(" ")[1];
-    console.log(tokenReceived);
+    
     jwt.verify(tokenReceived, instance.get("jwtSecret"), function(err, decoded){
       if(err){
         response.send({status:500, error:"Internal server error : Token verification failed"})
@@ -278,19 +275,14 @@ instance.get("/api/personalinfotemp", function(request, response){
 // to get personal info by userName
 instance.get("/api/personalinfo/byusername/:userName", function(request, response){
   
-  
-
   var tokenReceived = request.headers.authorization.split(" ")[1];
-  console.log(tokenReceived);
-
+  
   jwt.verify(tokenReceived, instance.get("jwtSecret"), function(err, decoded){
     if(err){
-      console.log(err);
+      
       response.send({status:500, error:"Internal server error : Token verification failed"})
     }
     else{
-      
-      
       request.decoded = decoded;  
       PersonalInfo.getPersonalInfoByUserName(request, response)
       

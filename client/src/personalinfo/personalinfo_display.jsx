@@ -35,7 +35,7 @@ class DisplayPersonalInfo extends Component {
          this.serve.getPersonalInfo(this.token)
                     .then((data) => data.json())
                     .then((value) => {this.setState({persons:value.data})
-                    console.log(this.persons);})
+                    console.log("person list ---- : ", this.persons);})
                     .catch(error => {
                         console.log(`Error occured ${error.status}`);
                     });
@@ -47,18 +47,34 @@ class DisplayPersonalInfo extends Component {
      
 
 
-    onClickSearch = (userName) => {
-        alert(userName);
-        this.serve.getPersonalInfoOnSearch(userName, this.token)
+    onClickSearch(username){       
+       
+        this.serve.getPersonalInfoByUserName(username, this.token)
+        
+        .then((data) => data.json())
+        .then((value) => {
+            this.setState({persons:[]})
+            var temp = this.state.persons;
+            temp.push(value.data);
+            
+            this.setState({persons:temp})
+         console.log("person list ---- : ", this.persons);})
+         .catch(error => {
+            console.log(`Error occured ${error.status}`);
+        });
+
+
+
+        // this.serve.getPersonalInfoByUserName(userName, this.token)
                    
-                   .then((data) => data.json())
+        //            .then((data) => data.json())
                      
-                    .then((value) => {this.setState({persons:value.data})
+        //            .then((value) => {this.setState({persons:value.data})
                      
-                    console.log("personal info search ------ : ", value.data);})
-                    .catch(error => {
-                        console.log(`Error occured ${error.status}`);
-                    });
+        //             console.log("personal info search ------ : ", value.data);})
+        //             .catch(error => {
+        //                 console.log(`Error occured ${error.status}`);
+        //             });
     }
 
     searchTextChange = (e) => {

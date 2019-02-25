@@ -46,17 +46,18 @@ module.exports = {
     getPersonalInfoByUserName:function(request, response){  // this method will get called from service url for execution
 
         // Business logic to get records from db ------------------------------------------------
-        console.log("dal call");
-        
+                
         console.log("name in dal =====",{username: request.params.userName});
         
         PersonalInfoModel.findOne({
             userName:request.params.userName
         }, function(err,res){   
             if(err){
+                                 
                 response.send({status:404, error:"Error: Error occured at getPersonalInfo()"})
-            }
-
+            }                
+                console.log(res);
+                
                 response.send({status:200, data:res, message:"Details found"})
                                 
         })
